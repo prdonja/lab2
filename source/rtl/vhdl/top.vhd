@@ -250,6 +250,32 @@ begin
   --dir_red
   --dir_green
   --dir_blue
+  dir_red <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
+			x"00" when dir_pixel_column >=80  and dir_pixel_column< 160 else
+			x"00" when dir_pixel_column >= 160 and dir_pixel_column<240 else
+			x"00" when dir_pixel_column >= 240 and dir_pixel_column<320 else
+			x"FF" when dir_pixel_column >= 320 and dir_pixel_column<400 else
+			x"FF" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
+			x"FF" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
+			x"FF";
+			
+  dir_green <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
+			x"00" when dir_pixel_column >=80  and dir_pixel_column< 160 else
+			x"FF" when dir_pixel_column >= 160 and dir_pixel_column<240 else
+			x"FF" when dir_pixel_column >= 240 and dir_pixel_column<320 else
+			x"00" when dir_pixel_column >= 320 and dir_pixel_column<400 else
+			x"00" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
+			x"FF" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
+			x"FF";            
+  
+  dir_blue <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
+			x"FF" when dir_pixel_column >=80  and dir_pixel_column< 160 else
+			x"00" when dir_pixel_column >= 160 and dir_pixel_column<240 else
+			x"FF" when dir_pixel_column >= 240 and dir_pixel_column<320 else
+			x"00" when dir_pixel_column >= 320 and dir_pixel_column<400 else
+			x"FF" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
+			x"00" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
+			x"FF";
  
   -- koristeci signale realizovati logiku koja pise po TXT_MEM
   --char_address
