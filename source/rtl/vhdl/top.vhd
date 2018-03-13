@@ -277,6 +277,7 @@ begin
 	--		x"FF";
  
   -- koristeci signale realizovati logiku koja pise po TXT_MEM
+  
   --char_address
   --char_value
   --char_we
