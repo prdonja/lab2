@@ -281,18 +281,23 @@ begin
   --char_value
   --char_we
   
-   char_we <= '1';
-  
-	char_value <= "001101" when (char_address = 10) else -- M
-					  "000001" when (char_address = 11) else -- A
-					  "010010" when (char_address = 12) else -- R
-					  "001011" when (char_address = 13) else -- K
-					  "001111" when (char_address = 10) else -- O
-					  "100000" when (char_address = 14) else -- SPACE
-					  "000101" when (char_address = 15) else 
-					  "000101" when (char_address = 16) else
-					  "000101" when (char_address = 17) else
-					  "000000";
+   char_we<= '1';
+	
+		process(pix_clock_s,reset_n_i)begin
+			if(reset_n_i='0')then
+				char_address<=(others=>'0');
+			elsif(pix_clock_s = '1')then
+				if(char_we='1')then
+					char_address<=char_address+1;
+				elsif(char_address<="0001001011000000")then
+						char_address<=(others=>'0');
+				else char_address<=char_address;
+			end if;
+			end if;
+		end process;
+	
+	char_value<="000011" when (char_address="000000"&x"02")else
+				 "100000";
   
   
   
