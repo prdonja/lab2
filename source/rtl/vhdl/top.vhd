@@ -168,8 +168,8 @@ begin
   graphics_lenght <= conv_std_logic_vector(MEM_SIZE*8*8, GRAPH_MEM_ADDR_WIDTH);
   
   -- removed to inputs pin
-  direct_mode <= '1';
-  display_mode     <= "10";  -- 01 - text mode, 10 - graphics mode, 11 - text & graphics
+  direct_mode <= '0';
+  display_mode     <= "01";  -- 01 - text mode, 10 - graphics mode, 11 - text & graphics
   
   font_size        <= x"1";
   show_frame       <= '1';
@@ -250,37 +250,51 @@ begin
   --dir_red
   --dir_green
   --dir_blue
-  dir_red <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
-			x"00" when dir_pixel_column >=80  and dir_pixel_column< 160 else
-			x"00" when dir_pixel_column >= 160 and dir_pixel_column<240 else
-			x"00" when dir_pixel_column >= 240 and dir_pixel_column<320 else
-			x"FF" when dir_pixel_column >= 320 and dir_pixel_column<400 else
-			x"FF" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
-			x"FF" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
-			x"FF";
+ -- dir_red <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
+--			x"00" when dir_pixel_column >=80  and dir_pixel_column< 160 else
+--			x"00" when dir_pixel_column >= 160 and dir_pixel_column<240 else
+--	-		x"00" when dir_pixel_column >= 240 and dir_pixel_column<320 else
+	--		x"FF" when dir_pixel_column >= 320 and dir_pixel_column<400 else
+	--		x"FF" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
+	--		x"FF" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
+	--		x"FF";
 			
-  dir_green <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
-			x"00" when dir_pixel_column >=80  and dir_pixel_column< 160 else
-			x"FF" when dir_pixel_column >= 160 and dir_pixel_column<240 else
-			x"FF" when dir_pixel_column >= 240 and dir_pixel_column<320 else
-			x"00" when dir_pixel_column >= 320 and dir_pixel_column<400 else
-			x"00" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
-			x"FF" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
-			x"FF";            
+--  dir_green <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
+--	--		x"FF" when dir_pixel_column >= 160 and dir_pixel_column<240 else
+--			x"FF" when dir_pixel_column >= 240 and dir_pixel_column<320 else
+---			x"00" when dir_pixel_column >= 320 and dir_pixel_column<400 else
+	--		x"00" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
+--			x"FF" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
+	--		x"FF";            
   
-  dir_blue <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
-			x"FF" when dir_pixel_column >=80  and dir_pixel_column< 160 else
-			x"00" when dir_pixel_column >= 160 and dir_pixel_column<240 else
-			x"FF" when dir_pixel_column >= 240 and dir_pixel_column<320 else
-			x"00" when dir_pixel_column >= 320 and dir_pixel_column<400 else
-			x"FF" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
-			x"00" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
-			x"FF";
+--  dir_blue <= x"00" when dir_pixel_column >= 0 and dir_pixel_column<80 else
+	--		x"FF" when dir_pixel_column >=80  and dir_pixel_column< 160 else
+--			x"00" when dir_pixel_column >= 160 and dir_pixel_column<240 else
+	--		x"FF" when dir_pixel_column >= 240 and dir_pixel_column<320 else
+--			x"00" when dir_pixel_column >= 320 and dir_pixel_column<400 else
+	--		x"FF" when dir_pixel_column >= 400 and dir_pixel_column<=480 else
+	--		x"00" when dir_pixel_column >= 480 and dir_pixel_column<=560 else
+	--		x"FF";
  
   -- koristeci signale realizovati logiku koja pise po TXT_MEM
   --char_address
   --char_value
   --char_we
+  
+   char_we <= '1';
+  
+	char_value <= "001101" when (char_address = 10) else -- M
+					  "000001" when (char_address = 11) else -- A
+					  "010010" when (char_address = 12) else -- R
+					  "001011" when (char_address = 13) else -- K
+					  "001111" when (char_address = 10) else -- O
+					  "100000" when (char_address = 14) else -- SPACE
+					  "000101" when (char_address = 15) else 
+					  "000101" when (char_address = 16) else
+					  "000101" when (char_address = 17) else
+					  "000000";
+  
+  
   
   -- koristeci signale realizovati logiku koja pise po GRAPH_MEM
   --pixel_address
@@ -289,3 +303,11 @@ begin
   
   
 end rtl;
+
+
+
+
+
+
+
+
